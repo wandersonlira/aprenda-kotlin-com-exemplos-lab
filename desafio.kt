@@ -1,21 +1,49 @@
-// [Template no Kotlin Playground](https://pl.kotl.in/WcteahpyN)
+enum class Nivel { EASY, MEDIUM, ADVANCED }
+enum class Sexo { MASCULINO, FEMENINO }
 
-enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
+data class Usuario(val name: String, val sexo: Sexo, var idade: Int )
 
-class Usuario
+data class ConteudoEducacional(val nome: String, val nivel: Nivel, var duracao: Int)
 
-data class ConteudoEducacional(var nome: String, val duracao: Int = 60)
-
-data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) {
+data class Formacao(val nome: String, var conteudos: ConteudoEducacional, val aluno: Usuario) {
 
     val inscritos = mutableListOf<Usuario>()
     
-    fun matricular(usuario: Usuario) {
-        TODO("Utilize o parâmetro $usuario para simular uma matrícula (usar a lista de $inscritos).")
+    fun matricular(aluno: Usuario){
+        inscritos.add(aluno)
     }
 }
 
+
 fun main() {
-    TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
-    TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
+    
+	val variosConteudos = mutableListOf<ConteudoEducacional>()
+       variosConteudos.add(ConteudoEducacional("Geometria Plana", Nivel.EASY, 40))
+       variosConteudos.add(ConteudoEducacional("Função aritmética", Nivel.MEDIUM, 20))
+       variosConteudos.add(ConteudoEducacional("Plano Cartesiano", Nivel.EASY, 60))
+       variosConteudos.add(ConteudoEducacional("Progreção aritmética", Nivel.ADVANCED, 30))
+       
+       println("* -------- Lista de Cursos --------- *")
+        var cont = 0
+    
+        for (i in variosConteudos){
+           println("Conteúdo [$cont]: ${i.nome}, ${i.nivel}, ${i.duracao}")
+           cont++
+        }
+        
+        println("--------------------------------------------")
+    
+    val usuario1 = Usuario("Zezinho Panda", Sexo.MASCULINO, 20)
+    val formacaoUsuario1 = Formacao("Matemática", variosConteudos[2], usuario1)
+    
+    println("\n* ====== Formação ======= *")
+    println("Disciplina: ${formacaoUsuario1.nome} \nConteúdo: ${formacaoUsuario1.conteudos.nome}, ${formacaoUsuario1.conteudos.nivel}, ${formacaoUsuario1.conteudos.duracao} minutos \nAluno: ${formacaoUsuario1.aluno.name}, ${formacaoUsuario1.aluno.sexo}, ${formacaoUsuario1.aluno.idade}")
+      
+    val usuario2 = Usuario("Tai Tigresa", Sexo.FEMENINO, 24)
+    val formacaoUsuario2 = Formacao("Matemática", variosConteudos[3], usuario2)
+    
+    println("\n* ====== Formação ======= *")
+    println("Disciplina: ${formacaoUsuario2.nome} \nConteúdo: ${formacaoUsuario2.conteudos.nome}, ${formacaoUsuario2.conteudos.nivel}, ${formacaoUsuario2.conteudos.duracao} minutos \nAluno: ${formacaoUsuario2.aluno.name}, ${formacaoUsuario2.aluno.sexo}, ${formacaoUsuario2.aluno.idade}")
+   
+      
 }
